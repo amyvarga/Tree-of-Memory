@@ -47,12 +47,13 @@ def add_gemstone(conn, code, name, desc_phrase, title_suffix, symbolism_paragrap
     )
 
 
-def add_parent(conn, parent_id, name_template, description, size, sourcing="India"):
+def add_parent(conn, parent_id, name_template, description, size, sourcing="India",
+                chain_length_override=None):
     conn.execute(
         """INSERT OR REPLACE INTO parent_products
-           (parent_id, name_template, description, size, sourcing)
-           VALUES (?, ?, ?, ?, ?)""",
-        (parent_id, name_template, description, size, sourcing),
+           (parent_id, name_template, description, size, sourcing, chain_length_override)
+           VALUES (?, ?, ?, ?, ?, ?)""",
+        (parent_id, name_template, description, size, sourcing, chain_length_override),
     )
 
 

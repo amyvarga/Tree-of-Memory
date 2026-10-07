@@ -18,11 +18,12 @@ CREATE TABLE IF NOT EXISTS gemstones (
 );
 
 CREATE TABLE IF NOT EXISTS parent_products (
-    parent_id       TEXT PRIMARY KEY,      -- e.g. 'ZOD-001'
-    name_template   TEXT NOT NULL,         -- contains {MATERIAL}/{GEM}/{SUFFIX} placeholders
-    description     TEXT NOT NULL,         -- contains {GEM_DESC}/{SYMBOLISM} placeholders where relevant
-    size            TEXT NOT NULL,         -- e.g. '4.5 x 4.5 cm (H x W)'
-    sourcing        TEXT NOT NULL DEFAULT 'India'
+    parent_id             TEXT PRIMARY KEY,      -- e.g. 'ZOD-001'
+    name_template         TEXT NOT NULL,         -- contains {MATERIAL}/{GEM}/{SUFFIX} placeholders
+    description           TEXT NOT NULL,         -- contains {GEM_DESC}/{SYMBOLISM} placeholders where relevant
+    size                  TEXT NOT NULL,         -- e.g. '4.5 x 4.5 cm (H x W)'
+    sourcing              TEXT NOT NULL DEFAULT 'India',
+    chain_length_override TEXT                   -- overrides the standard '43 cm / 17 inch' choice for designs with one fixed chain length (e.g. a lariat)
 );
 
 CREATE TABLE IF NOT EXISTS pendants (
@@ -88,7 +89,7 @@ SELECT
     'Yes'                                                                AS "Chain included",
     'Snake chain'                                                       AS "Chain type",
     m.chain_material                                                    AS "Chain material",
-    '43 cm / 17 inch'                                                   AS "Chain length",
+    COALESCE(pp.chain_length_override, '43 cm / 17 inch')               AS "Chain length",
     'Hook clasp'                                                        AS "Clasp",
     p.tags                                                              AS "Tags"
 FROM pendants p
