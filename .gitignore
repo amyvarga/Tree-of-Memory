@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+.DS_Store
+*.pyc
+
+# business data - kept local, not published
+pendants.db
+pendants_export.csv
+Tree of Memory stock - Pendants.pdf
+Tree of Memory stock - Pendants.xlsx
+eBay/
